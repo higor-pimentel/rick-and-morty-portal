@@ -1,0 +1,19 @@
+@media screen and (max-width: 990px) {
+  .pmt-sm {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+}
+
+
+@media screen and (max-width: 465px) {
+  .imgProfile {
+    width: 95%;
+    height: auto;
+  }
+
+  .p-sm {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+  }
+}

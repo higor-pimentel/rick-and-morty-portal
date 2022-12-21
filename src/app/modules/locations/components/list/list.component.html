@@ -1,0 +1,11 @@
+<div class="px-3 me-3">
+
+  <form class="d-flex flex-row flex-wrap justify-content-between">
+
+    <h1 class="col-md mb-3 flex-fill">List of Locations</h1>
+    <app-search class="flex-fill" (searchOut)="search($event)" [options]="searchOptions"></app-search>
+  </form>
+
+  <app-table [loading]="loading" [configTable]="configTable" [dataSource]="dataSource"
+    (pageChange)="pageChanged($event)" (itemSelect)=" selectedItem($event)"></app-table>
+</div>

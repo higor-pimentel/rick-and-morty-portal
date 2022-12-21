@@ -1,0 +1,33 @@
+<div class="d-flex flex-row align-items-center align-content-center flex-wrap p-3" [ngClass]="{'hidden': loading}">
+
+  <div class="p-3 m-2">
+    <h3>Characters status by location</h3>
+    <div class="d-flex p-3">
+      <input #searchInputLocation class="form-control me-2" type="search" placeholder="Location" aria-label="Search">
+      <button class="btn btn-outline-success" (click)="searchLocation(searchInputLocation.value)">Apply</button>
+    </div>
+    <div style="width: 500px;">
+      <canvas id="myChartLocation">{{ chart }}</canvas>
+    </div>
+  </div>
+  <div class="p-3 m-2">
+    <h3>Characters status by species</h3>
+    <div class="d-flex p-3">
+      <input #searchInputSpecie class="form-control me-2" type="search" placeholder="Specie" aria-label="Search">
+      <button class="btn btn-outline-success" (click)="searchSpecie(searchInputSpecie.value)">Apply</button>
+    </div>
+    <div style="width: 500px;">
+      <canvas id="myChartSpecies">{{ specieChart }}</canvas>
+    </div>
+  </div>
+
+
+
+  <ng-template *ngIf="loading">
+    <div class="z-2 min-vh-100 d-flex justify-content-center align-items-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+</div>

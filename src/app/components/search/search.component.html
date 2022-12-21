@@ -1,0 +1,16 @@
+<div class="input-group col-md m-2 p-3">
+  <input #searchInput class="form-control me-2" type="search" placeholder="Search" aria-label="Search" required
+    (search)="search($event, $event.target, floatingSelectFilter)">
+  <div class="form-floating">
+    <select #floatingSelectFilter class="form-select" required>
+      <option selected disabled value=""></option>
+      <ng-container *ngFor="let option of options">
+        <option [value]="option.value">{{option.label}}</option>
+      </ng-container>
+    </select>
+    <label for="floatingSelectFilter">Select the field search</label>
+  </div>
+  <button class="btn btn-outline-success" type="submit"
+    (click)="search($event, searchInput, floatingSelectFilter)">Search</button>
+
+</div>

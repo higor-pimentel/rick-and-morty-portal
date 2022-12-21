@@ -1,0 +1,53 @@
+<table id="table" aria-label="table" class="table table-striped p-3">
+  <thead>
+    <tr>
+      <ng-container *ngFor="let column of configTable.columns">
+
+        <th scope="col">{{column.label}}</th>
+      </ng-container>
+      <th class="text-center">Details</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="!loading; else loadingSpinner">
+    <ng-container *ngFor="let data of (dataSource | slice: (page-1) * pageSize : page * pageSize)">
+      <tr>
+        <ng-container *ngFor=" let column of configTable.columns">
+
+          <td>{{ data[column.name]}}</td>
+        </ng-container>
+        <td class="text-center" role="button" (click)="itemSelected(data)">
+          <em class="bi bi-box-arrow-up-right"></em>
+        </td>
+      </tr>
+    </ng-container>
+    <tr>
+      <td *ngIf="!dataSource.length" colSpan="4">
+        <div class="d-flex justify-content-center align-items-center">
+          <p>
+            No items were found
+          </p>
+        </div>
+      </td>
+    </tr>
+
+  </tbody>
+
+</table>
+<ng-template #loadingSpinner>
+  <tr>
+    <td colspan="5">
+      <div class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </td>
+  </tr>
+</ng-template>
+
+<ngb-pagination *ngIf="dataSource.length" class="d-flex justify-content-center" aria-label="Table pagination"
+  [collectionSize]="configTable.totalElements" [(page)]="page" [pageSize]="pageSize" [maxSize]="5"
+  (pageChange)="pageChanged($event)">
+  <ng-template ngbPaginationPrevious>Prev</ng-template>
+  <ng-template ngbPaginationNext>Next</ng-template>
+</ngb-pagination>

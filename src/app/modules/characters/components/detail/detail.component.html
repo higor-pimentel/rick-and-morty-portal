@@ -1,0 +1,77 @@
+<div *ngIf="!loading; else loadingSpinner"
+  class="container bg-primary bg-gradient bg-opacity-25 border border-2 rounded-1 border-sucess border-opacity-50 py-3 px-5 p-sm">
+  <div class="container-md bg-light bg-gradient rounded-1 d-flex flex-row flex-wrap gap-4 px-3 py-3">
+
+    <img [src]="character.image" [alt]="character.name + ' image'" class="shadow rounded-3 m-1 imgProfile">
+
+    <div px-3 class="h-25 flex-column flex-wrap text-black-50">
+      <h1 class="text-dark">{{character.name}}</h1>
+      <div>Species:
+        <div class="fs-3 text-dark">{{character.species}}</div>
+      </div>
+      <div *ngIf="!!character.type">Type:
+        <div class="fs-3 text-dark">{{character.type}}</div>
+      </div>
+      <div>Gender:
+        <div class="fs-3 text-dark">{{character.gender}}</div>
+      </div>
+      <div>Status:
+        <div class="fs-3 text-dark">{{character.status}}</div>
+      </div>
+
+    </div>
+    <div *ngIf="!!character.origin" class="pt-5 mt-4 ms-2 pmt-sm">
+
+      <h4 class="text-black-50">Origin
+      </h4>
+      <div class="fs-3 text-dark">{{character.origin.name}}</div>
+      <div>Dimension:
+        <div class="fs-3 text-dark">{{character.origin.dimension}}</div>
+      </div>
+    </div>
+    <div *ngIf="!!character.location" class="pt-5 mt-4 ms-2 pmt-sm">
+
+      <h4 class="text-black-50">Actual location
+      </h4>
+      <div class="fs-3 text-dark">{{character.location.name}}</div>
+      <div>Dimension:
+        <div class="fs-3 text-dark">{{character.location.dimension}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row flex-wrap justify-content-center mt-2 gap-4 px-3 py-3 ">
+    <ul ngbNav #nav="ngbNav" class="nav-pills rounded-pill bg-light shadow pe-none">
+      <li ngbNavItem>
+        <a ngbNavLink class="rounded-pill">Episodes</a>
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="!!character.episode"
+    class="bg-light bg-gradient rounded-1 d-flex flex-row flex-wrap justify-content-center mt-2 gap-4 px-3 py-3">
+    <ng-container *ngFor="let ep of character.episode">
+
+      <div class="card">
+        <div role="button" class="card-body bg-sucess bg-gradient bg-opacity-25" (click)="navigate(ep.id)">
+          <h5 class="card-title">{{ep.name}}</h5>
+          <div class="card-text">
+            <div>Episode:
+              <div class="fs-4 text-dark">{{ep.episode}}</div>
+            </div>
+            <div>Air Date:
+              <div class="fs-4 text-dark">{{ep.air_date}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #loadingSpinner>
+  <div class="z-2 min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</ng-template>
