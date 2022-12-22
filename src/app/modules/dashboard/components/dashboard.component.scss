@@ -1,3 +1,6 @@
-.hidden {
-  visibility: hidden;
-}
+ @media screen and (max-width: 465px) {
+   .p-sm {
+     padding-right: 1rem !important;
+     padding-left: 1rem !important;
+   }
+ }

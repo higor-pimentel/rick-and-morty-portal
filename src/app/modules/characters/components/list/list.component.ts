@@ -24,7 +24,7 @@ export class ListComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        label: 'Nome',
+        label: 'Name',
       },
       {
         name: 'gender',

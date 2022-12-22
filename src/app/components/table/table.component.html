@@ -3,9 +3,9 @@
     <tr>
       <ng-container *ngFor="let column of configTable.columns">
 
-        <th scope="col">{{column.label}}</th>
+        <th scope="col">{{column.label | lowercase | translate}}</th>
       </ng-container>
-      <th class="text-center">Details</th>
+      <th class="text-center">{{'details' | translate}}</th>
     </tr>
   </thead>
   <tbody *ngIf="!loading; else loadingSpinner">
@@ -13,7 +13,7 @@
       <tr>
         <ng-container *ngFor=" let column of configTable.columns">
 
-          <td>{{ data[column.name]}}</td>
+          <td>{{ data[column.name] }}</td>
         </ng-container>
         <td class="text-center" role="button" (click)="itemSelected(data)">
           <em class="bi bi-box-arrow-up-right"></em>
@@ -24,7 +24,7 @@
       <td *ngIf="!dataSource.length" colSpan="4">
         <div class="d-flex justify-content-center align-items-center">
           <p>
-            No items were found
+            {{'noItemsFound' | translate}}
           </p>
         </div>
       </td>
@@ -48,6 +48,6 @@
 <ngb-pagination *ngIf="dataSource.length" class="d-flex justify-content-center" aria-label="Table pagination"
   [collectionSize]="configTable.totalElements" [(page)]="page" [pageSize]="pageSize" [maxSize]="5"
   (pageChange)="pageChanged($event)">
-  <ng-template ngbPaginationPrevious>Prev</ng-template>
-  <ng-template ngbPaginationNext>Next</ng-template>
+  <ng-template ngbPaginationPrevious>{{'Prev' | lowercase | translate}}</ng-template>
+  <ng-template ngbPaginationNext>{{'Next' | lowercase | translate}}</ng-template>
 </ngb-pagination>

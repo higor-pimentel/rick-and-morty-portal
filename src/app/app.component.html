@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-success bg-gradient bg-opacity-75 container-fluid">
   <div class="container">
     <a class="navbar-brand" href="#">
-      <h1>Rick & Morty Portal</h1>
+      <h1>{{'home.title' | translate}}</h1>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,18 +10,27 @@
     <div class="collapse navbar-collapse " id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="#">{{'home.home' | translate}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" routerLink="/characters">Characters</a>
+          <a class="nav-link active" routerLink="/characters">{{'characters' | translate}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" routerLink="/locations">Locations</a>
+          <a class="nav-link active" routerLink="/locations">{{'locations' | translate}}</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" routerLink="/episodes" tabindex="-1">Episodes</a>
+          <a class="nav-link active" routerLink="/episodes" tabindex="-1">{{'episodes' | translate}}</a>
         </li>
       </ul>
+      <form [formGroup]="formGroup" class="w-25 d-flex form-floating">
+        <select formControlName="selectLanguage" id="selectLanguage" class="form-select" aria-label="Language select"
+          (change)="selectLanguage($event.target)">
+          <ng-container *ngFor="let lg of supportLanguages">
+            <option [value]="lg">{{lg | translate}}</option>
+          </ng-container>
+        </select>
+        <label for="selectLanguage">{{'selectLanguage' | translate}}:</label>
+      </form>
     </div>
   </div>
 </nav>
