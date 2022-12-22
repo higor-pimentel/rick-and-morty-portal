@@ -1,33 +1,57 @@
-<div class="d-flex flex-row align-items-center align-content-center flex-wrap p-3" [ngClass]="{'hidden': loading}">
+<div class="container-fluid d-flex flex-row align-items-center align-content-center flex-wrap p-3"
+  [ngClass]="{'hidden-loading': loading}">
 
-  <div class="p-3 m-2">
-    <h3>Characters status by location</h3>
-    <div class="d-flex p-3">
-      <input #searchInputLocation class="form-control me-2" type="search" placeholder="Location" aria-label="Search">
-      <button class="btn btn-outline-success" (click)="searchLocation(searchInputLocation.value)">Apply</button>
-    </div>
-    <div style="width: 500px;">
-      <canvas id="myChartLocation">{{ chart }}</canvas>
-    </div>
-  </div>
-  <div class="p-3 m-2">
-    <h3>Characters status by species</h3>
-    <div class="d-flex p-3">
-      <input #searchInputSpecie class="form-control me-2" type="search" placeholder="Specie" aria-label="Search">
-      <button class="btn btn-outline-success" (click)="searchSpecie(searchInputSpecie.value)">Apply</button>
-    </div>
-    <div style="width: 500px;">
-      <canvas id="myChartSpecies">{{ specieChart }}</canvas>
-    </div>
-  </div>
-
-
-
-  <ng-template *ngIf="loading">
-    <div class="z-2 min-vh-100 d-flex justify-content-center align-items-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
+  <div class="container h-50 w-100">
+    <div class="row">
+      <div class="col w-50 p-3 m-2 shadow">
+        <h3>{{ 'characterStatus' | translate}} {{'location' | translate | lowercase}}</h3>
+        <div class="d-flex w-50 p-3">
+          <input #searchInputLocation class="form-control me-2" type="search" [placeholder]="'location' | translate"
+            aria-label="Search">
+          <button class="btn btn-outline-success" (click)="searchLocation(searchInputLocation.value)">{{'apply' |
+            translate}}</button>
+        </div>
+        <div class="w-100 h-75">
+          <canvas id="myChartLocation">{{ chart }}</canvas>
+        </div>
+      </div>
+      <div class="col  p-3 m-2 shadow">
+        <h3>{{ 'characterStatus' | translate}} {{'specie' | translate | lowercase}}</h3>
+        <div class="d-flex  w-50 p-3">
+          <input #searchInputSpecie class="form-control me-2" type="search" [placeholder]="'specie' | translate"
+            aria-label="Search">
+          <button class="btn btn-outline-success" (click)="searchSpecie(searchInputSpecie.value)">{{'apply' |
+            translate}}</button>
+        </div>
+        <div class="w-100 h-100">
+          <canvas id="myChartSpecies">{{ specieChart }}</canvas>
+        </div>
       </div>
     </div>
-  </ng-template>
+  </div>
+
+  <!-- <div
+    class="container bg-primary bg-gradient bg-opacity-25 border border-2 rounded-1 border-sucess border-opacity-50 mt-2 py-3 px-5 p-sm">
+
+    <div class="input-group col-md m-2 p-3">
+      <div class="form-floating">
+        <select #floatingSelectFilter class="form-select" required (change)="selectedDimension($event.target)">
+          <option selected disabled value=""></option>
+          <option value="unknown">{{'unknown' | translate}}</option>
+          <ng-container *ngFor="let dimension of dimensions">
+            <option [value]="dimension.name">{{dimension.name}}</option>
+          </ng-container>
+        </select>
+        <label for="floatingSelectFilter">Select the field search</label>
+      </div>
+    </div>
+
+  </div> -->
+</div>
+
+
+<div *ngIf="loading" class="spinner">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
 </div>

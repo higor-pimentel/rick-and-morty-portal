@@ -1,13 +1,13 @@
-<div *ngIf="!loading; else loadingSpinner"
+<div [ngClass]="{'hidden-loading': loading}"
   class="container bg-primary bg-gradient bg-opacity-25 border border-2 rounded-1 border-sucess border-opacity-50 py-3 px-5 p-sm">
   <div class="container-md bg-light bg-gradient rounded-1 d-flex flex-row flex-wrap gap-4 px-3 py-3">
 
     <div px-3 class="h-25 flex-column flex-wrap text-black-50">
       <h1 class="text-dark">{{episode.name}}</h1>
-      <div>Episode:
+      <div>{{'episode' | translate}}:
         <div class="fs-3 text-dark">{{episode.episode}}</div>
       </div>
-      <div>Air Date:
+      <div>{{'airdate' | translate}}:
         <div class="fs-3 text-dark">{{episode.air_date}}</div>
       </div>
     </div>
@@ -16,7 +16,7 @@
   <div class="d-flex flex-row flex-wrap justify-content-center mt-2 gap-4 px-3 py-3 ">
     <ul ngbNav #nav="ngbNav" class="nav-pills rounded-pill bg-light shadow pe-none">
       <li ngbNavItem>
-        <a ngbNavLink class="rounded-pill">Characters</a>
+        <a ngbNavLink class="rounded-pill">{{'characters' | translate}}</a>
       </li>
     </ul>
   </div>
@@ -25,15 +25,15 @@
     <ng-container *ngFor="let char of episode.characters">
 
       <div role="button" class="card" (click)="navigate(char.id)">
-        <img [src]="char.image" [alt]="char.name + ' image'" class="shadow rounded-3 m-1 imgProfile">
+        <img [src]="char.image" [alt]="char.name + ' image'" class="shadow rounded-3 m-1 imgProfile" loading="lazy">
         <div class="card-body bg-warning bg-gradient bg-opacity-25">
           <h5 class="card-title">{{char.name}}</h5>
           <div class="card-text">
-            <div>Gender:
-              <div class="fs-4 text-dark">{{char.gender}}</div>
+            <div>{{'gender' | translate}}:
+              <div class="fs-4 text-dark">{{char.gender | lowercase | translate}}</div>
             </div>
-            <div>Status:
-              <div class="fs-4 text-dark">{{char.status}}</div>
+            <div>{{'status' | translate}}:
+              <div class="fs-4 text-dark">{{char.status | lowercase | translate}}</div>
             </div>
           </div>
         </div>
@@ -42,10 +42,8 @@
   </div>
 </div>
 
-<ng-template #loadingSpinner>
-  <div class="z-2 min-vh-100 d-flex justify-content-center align-items-center">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+<div *ngIf="loading" class="spinner">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">{{'loading' | translate}}...</span>
   </div>
-</ng-template>
+</div>

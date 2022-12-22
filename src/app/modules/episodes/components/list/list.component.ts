@@ -23,11 +23,11 @@ export class ListComponent implements OnInit {
     columns: [
       {
         name: 'name',
-        label: 'Nome',
+        label: 'Name',
       },
       {
         name: 'air_date',
-        label: 'Air date',
+        label: 'AirDate',
       },
       {
         name: 'episode',

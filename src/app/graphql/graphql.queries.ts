@@ -150,6 +150,7 @@ const GET_LOCATION = gql`
       residents {
         id
         name
+        gender
         status
         image
       }

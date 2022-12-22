@@ -7,6 +7,7 @@ import { ListComponent } from './components/list/list.component';
 import { SearchModule } from 'src/app/components/search/search.module';
 import { DetailComponent } from './components/detail/detail.component';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
     LocationsRoutingModule,
     SearchModule,
     NgbNavModule,
+    TranslateModule,
   ],
   exports: [ListComponent],
   declarations: [ListComponent, DetailComponent],

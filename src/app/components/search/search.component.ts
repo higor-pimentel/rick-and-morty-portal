@@ -11,6 +11,7 @@ export class SearchComponent implements OnInit {
   filterObj: any = {};
 
   @Input() options: SelectOptions[] = [];
+  @Input() label!: string;
   @Output() searchOut = new EventEmitter();
 
   constructor() {}

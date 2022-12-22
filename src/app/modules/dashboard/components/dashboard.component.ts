@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Chart, DoughnutController, registerables } from 'chart.js';
+import {
+  Chart,
+  ChartTypeRegistry,
+  DoughnutController,
+  registerables,
+} from 'chart.js';
 import {
   COUNT_CHARACTERS_BY_STATUS,
   COUNT_CHARACTERS_BY_STATUS_SPECIE,
@@ -8,6 +13,7 @@ import {
   GET_LOCATION_RESIDENTS,
 } from 'src/app/graphql/graphql.queries';
 import { CharacterResume } from '../../characters/model/character';
+import { Location } from '../../locations/model/location.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,14 +21,18 @@ import { CharacterResume } from '../../characters/model/character';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  public chart: any;
-  public specieChart: any;
-  public loading = false;
-  chartData: any[] = [];
+  loading = false;
+
+  chart: any;
+  specieChart: any;
+  dimensionChart: any;
+
   chartBackgroundColor = ['green', 'red', 'blue'];
   chartLabels = ['Alive', 'Dead', 'Unknown'];
+
   species: any[] = [];
   locations: any[] = [];
+  dimensions!: Location[];
 
   constructor(private apollo: Apollo) {
     Chart.register(DoughnutController, ...registerables);
@@ -32,9 +42,11 @@ export class DashboardComponent implements OnInit {
     this.loading = true;
     this.getCharactersByStatus();
     this.getCharactersBySpecies('');
+    //this.getDimensions();
   }
 
   createChart(
+    type: string,
     itemChart: string,
     label: string,
     labels: string[],
@@ -42,8 +54,7 @@ export class DashboardComponent implements OnInit {
     data: any[]
   ) {
     return new Chart(itemChart, {
-      type: 'doughnut', //this denotes tha type of chart
-
+      type: type as keyof ChartTypeRegistry, //this denotes tha type of chart
       data: {
         // values on X-Axis
         labels: labels,
@@ -68,17 +79,18 @@ export class DashboardComponent implements OnInit {
       })
       .valueChanges.subscribe(({ data, error }: any) => {
         this.loading = false;
-        this.chartData = [
+        const chartData = [
           data.aliveCharacters.info.count,
           data.deadCharacters.info.count,
           data.unknownCharacters.info.count,
         ];
         this.chart = this.createChart(
+          'doughnut',
           'myChartLocation',
           'Characters',
           this.chartLabels,
           this.chartBackgroundColor,
-          this.chartData
+          chartData
         );
       });
   }
@@ -104,6 +116,7 @@ export class DashboardComponent implements OnInit {
           this.specieChart.update();
         } else {
           this.specieChart = this.createChart(
+            'doughnut',
             'myChartSpecies',
             'Characters',
             this.chartLabels,
@@ -123,8 +136,6 @@ export class DashboardComponent implements OnInit {
         },
       })
       .valueChanges.subscribe(({ data, error }: any) => {
-        this.loading = false;
-
         const locationData = [
           data.locations.results[0].residents.filter(
             (char: CharacterResume) => char.status === 'Alive'
@@ -142,8 +153,6 @@ export class DashboardComponent implements OnInit {
           ).length
         );
 
-        console.log(locationData);
-
         if (!!this.chart) {
           this.chart.data.datasets[0].data = locationData;
           this.chart.update();
@@ -157,5 +166,24 @@ export class DashboardComponent implements OnInit {
 
   searchSpecie(specie: string) {
     this.getCharactersBySpecies(specie);
+  }
+
+  getDimensions() {
+    this.apollo
+      .watchQuery({
+        query: GET_ALL_LOCATIONS,
+        variables: {
+          page: 1,
+          filter: { type: 'dimension' },
+        },
+      })
+      .valueChanges.subscribe(({ data, error }: any) => {
+        this.dimensions = data.locations.results;
+        console.log(this.dimensions);
+      });
+  }
+
+  selectedDimension({ value }: any) {
+    console.log(value);
   }
 }

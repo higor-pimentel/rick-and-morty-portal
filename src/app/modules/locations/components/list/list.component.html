@@ -2,7 +2,7 @@
 
   <form class="d-flex flex-row flex-wrap justify-content-between">
 
-    <h1 class="col-md mb-3 flex-fill">List of Locations</h1>
+    <h1 class="col-md mb-3 flex-fill">{{'locationsList' | translate}}</h1>
     <app-search class="flex-fill" (searchOut)="search($event)" [options]="searchOptions"></app-search>
   </form>
 
