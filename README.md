@@ -1,5 +1,9 @@
 # RickAndMortyPortal
 
+## Acess the live project
+
+[Rick and Morty Portal](https://higor-pimentel.github.io/rick-and-morty-portal/)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.10.
 
 ## Development server
